@@ -1,0 +1,23 @@
+name: Validar sintaxis HTML
+
+on:
+  push:
+    branches: [ "main", "master" ] # Se adapta a cualquier nombre de rama principal
+
+jobs:
+  check-html:
+    name: Verificación de sintaxis
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Descargamos el código
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      # 2. Instalamos la herramienta directamente por terminal (más fiable)
+      - name: Instalar validador
+        run: npm install -g htmlhint
+
+      # 3. Ejecutamos la validación sobre todos los archivos .html
+      - name: Ejecutar validación
+        run: htmlhint "**/*.html"
